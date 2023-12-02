@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Keyword Entry</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        #left {
+            width: 50%;
+        }
+
+        #right {
+            width: 50%;
+            padding-left: 20px;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #3498db;
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            background-color: #ecf0f1;
+            color: #333;
+        }
+
+        button {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        #box2 {
+            margin-top: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+        }
+
+        #keywordDisplay,
+        #searchValueDisplay {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        #resultBox {
+            margin-top: 10px;
+        }
+
+        #blog {
+            text-align: justify;
+        }
+
+        #webpageInfo {
+            margin-top: 30px;
+            border-top: 1px solid #bdc3c7;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="left">
+        <h1>SEO Keyword Entry</h1>
+
+        <div>
+            <label for="keywordBox">Enter Keywords:</label>
+            <textarea id="keywordBox" placeholder="Enter keywords"></textarea>
+        </div>
+
+        <div>
+            <label for="searchValueBox">Enter Search Values:</label>
+            <textarea id="searchValueBox" placeholder="Enter search values"></textarea>
+        </div>
+
+        <button onclick="processKeywords()">Process Keywords</button>
+
+        <div id="box2">
+            <div id="keywordDisplay">
+                <h2>Keywords:</h2>
+                <textarea id="keywordResultBox" readonly></textarea>
+                <button onclick="copyKeywords()">Copy Keywords</button>
+            </div>
+            <div id="searchValueDisplay">
+                <h2>Search Values:</h2>
+                <textarea id="searchValueResultBox" readonly></textarea>
+                <button onclick="copySearchValues()">Copy Search Values</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="right">
+        <div id="blog">
+            <h2>The Importance of Keyword Analysis in SEO</h2>
+            <p>As an SEO expert, one of the fundamental aspects of optimizing a website for search engines is keyword analysis. Keywords are the foundation of how users search for information online, making them a critical component of any successful SEO strategy.</p>
+            <p>When creating content for a website, selecting the right keywords is crucial for attracting the target audience. The Keyword Entry tool on this page simplifies the process of managing and analyzing keywords, ensuring that your content aligns with user search behaviors.</p>
+            <p>By entering keywords and their corresponding search volumes, you can identify high-performing keywords and strategically integrate them into your content. The tool removes duplicate keywords, providing a clean list that can enhance the relevance of your web pages in search engine results.</p>
+            <p>Efficient keyword management not only improves your site's visibility but also helps in understanding user intent. By focusing on the right keywords, you can tailor your content to meet the specific needs of your audience, ultimately driving organic traffic to your website.</p>
+            <p>Remember, SEO is an ever-evolving field, and staying informed about the latest keyword trends and user behaviors is essential. Utilizing tools like the Keyword Entry can streamline your SEO efforts, making your website more search-engine-friendly and user-centric.</p>
+        </div>
+
+        <div id="webpageInfo">
+            <h2>What does this webpage do?</h2>
+            <p>This webpage provides a user-friendly tool for managing and analyzing keywords related to Search Engine Optimization (SEO). Users can enter keywords and their corresponding search volumes, and the tool will process the data, removing duplicates and presenting a clean list of keywords. This functionality is designed to assist in optimizing website content for better search engine visibility and improved user experience.</p>
+        </div>
+    </div>
+
+    <script>
+        function processKeywords() {
+            var keywordBox = document.getElementById('keywordBox').value.split('\n');
+            var searchValueBox = document.getElementById('searchValueBox').value.split('\n');
+
+            // Combine unique keywords and corresponding search values
+            var uniqueKeywords = {};
+            for (var i = 0; i < keywordBox.length; i++) {
+                var keyword = keywordBox[i].trim();
+                if (keyword !== '') {
+                    uniqueKeywords[keyword] = searchValueBox[i] ? searchValueBox[i].trim() : '';
+                }
+            }
+
+            // Display unique keywords in keywordResultBox
+            var keywordResultBox = document.getElementById('keywordResultBox');
+            keywordResultBox.value = '';
+            for (var key in uniqueKeywords) {
+                keywordResultBox.value += key + '\n';
+            }
+
+            // Display corresponding search values in searchValueResultBox
+            var searchValueResultBox = document.getElementById('searchValueResultBox');
+            searchValueResultBox.value = '';
+            for (var key in uniqueKeywords) {
+                searchValueResultBox.value += uniqueKeywords[key] + '\n';
+            }
+        }
+
+        function copyKeywords() {
+            var keywordResultBox = document.getElementById('keywordResultBox');
+            keywordResultBox.select();
+            document.execCommand('copy');
+            alert('Keywords copied to clipboard!');
+        }
+
+        function copySearchValues() {
+            var searchValueResultBox = document.getElementById('searchValueResultBox');
+            searchValueResultBox.select();
+            document.execCommand('copy');
+            alert('Search values copied to clipboard!');
+        }
+    </script>
+
+</body>
+</html>

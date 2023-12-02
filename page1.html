@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keyword Comparator</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+            color: #333;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .keyword-section {
+            width: 45%;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: none;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .copy-btn {
+            display: inline-block;
+            padding: 8px 16px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+            transition: background-color 0.3s;
+        }
+
+        .copy-btn:hover {
+            background-color: #218838;
+        }
+
+        .result-section {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .result-column {
+            width: 48%;
+        }
+
+        .copy-btn-keywords,
+        .copy-btn-search-volumes {
+            margin-top: 10px;
+        }
+
+        .blog-section {
+            width: 50%;
+            background-color: #ffffff;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            color: #007BFF;
+        }
+
+        p {
+            line-height: 1.6;
+            text-align: justify;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="keyword-section">
+    <div class="container">
+        <div>
+            <h2>Source Keywords & Search Volumes</h2>
+            <textarea id="keywords1" placeholder="Enter keywords"></textarea>
+            <textarea id="searchVolumes1" placeholder="Enter search volumes"></textarea>
+        </div>
+
+        <div>
+            <h2>Target Keywords & Search Volumes</h2>
+            <textarea id="keywords2" placeholder="Enter keywords"></textarea>
+            <textarea id="searchVolumes2" placeholder="Enter search volumes"></textarea>
+        </div>
+    </div>
+
+    <button onclick="compareAndCopy()">Compare and Copy</button>
+
+    <div class="result-box">
+        <h2>Filtered Keywords & Search Volumes</h2>
+        <div class="result-section">
+            <div class="result-column" id="resultKeywords3"></div>
+            <div class="result-column" id="resultSearchVolumes3"></div>
+        </div>
+        <button class="copy-btn copy-btn-keywords" onclick="copyResult('resultKeywords3')">Copy Keywords</button>
+        <button class="copy-btn copy-btn-search-volumes" onclick="copyResult('resultSearchVolumes3')">Copy Search Volumes</button>
+    </div>
+
+    <div class="result-box">
+        <h2>Additional Keywords & Search Volumes</h2>
+        <div class="result-section">
+            <div class="result-column" id="resultKeywords4"></div>
+            <div class="result-column" id="resultSearchVolumes4"></div>
+        </div>
+        <button class="copy-btn copy-btn-keywords" onclick="copyResult('resultKeywords4')">Copy Keywords</button>
+        <button class="copy-btn copy-btn-search-volumes" onclick="copyResult('resultSearchVolumes4')">Copy Search Volumes</button>
+    </div>
+</div>
+
+<div class="blog-section">
+    <h2>How Does This Tool Help SEO Analysts?</h2>
+    <p>Search Engine Optimization (SEO) is a dynamic field that requires a strategic approach to keyword targeting. The Keyword Comparator tool serves as a valuable asset for SEO analysts by streamlining the keyword analysis process. Here's how this tool can significantly benefit SEO professionals:</p>
+    <ul>
+        <li><strong>Efficient Keyword Comparison:</strong> The tool allows users to input two sets of keywords along with their corresponding search volumes, enabling a quick and efficient comparison of keyword performance.</li>
+        <li><strong>Smart Filtering:</strong> By setting a minimum search volume threshold, SEO analysts can filter out keywords that do not meet their performance criteria, focusing on those with higher search volumes.</li>
+        <li><strong>Identifying Valuable Keywords:</strong> The tool not only identifies keywords with higher search volumes but also highlights additional keywords from the source set that may be valuable for SEO efforts.</li>
+        <li><strong>Preventing Keyword Redundancy:</strong> The tool ensures that keywords from the source set are not repeated in the filtered results, avoiding redundancy in keyword targeting strategies.</li>
+        <li><strong>Data-Driven Decision Making:</strong> With a clear presentation of filtered and additional keywords, SEO analysts can make informed, data-driven decisions on which keywords to prioritize for optimization.</li>
+    </ul>
+    <p>Overall, the Keyword Comparator tool empowers SEO analysts to refine their keyword strategies, optimize content for relevant terms, and ultimately enhance their website's visibility in search engine results. Incorporating this tool into the SEO workflow can lead to more effective keyword targeting and improved organic search performance.</p>
+</div>
+
+<script>
+    function compareAndCopy() {
+        var keywords1 = document.getElementById("keywords1").value.split("\n");
+        var searchVolumes1 = document.getElementById("searchVolumes1").value.split("\n");
+        var keywords2 = document.getElementById("keywords2").value.split("\n");
+        var searchVolumes2 = document.getElementById("searchVolumes2").value.split("\n");
+
+        var minSearchVolume = prompt("Enter the minimum needed search volume:");
+
+        var resultKeywordsBox3 = [];
+        var resultSearchVolumesBox3 = [];
+        var resultKeywordsBox4 = [];
+        var resultSearchVolumesBox4 = [];
+
+        // Add keywords from Box 1 to Box 3 that have more search volume than required
+        for (var i = 0; i < keywords1.length; i++) {
+            if (parseInt(searchVolumes1[i]) > parseInt(minSearchVolume) && !keywords2.includes(keywords1[i]) && !resultKeywordsBox3.includes(keywords1[i])) {
+                resultKeywordsBox3.push(keywords1[i]);
+                resultSearchVolumesBox3.push(searchVolumes1[i]);
+            }
+        }
+
+        // Add keywords from Box 2 to Box 3 that have more search volume than required
+        for (var i = 0; i < keywords2.length; i++) {
+            if (parseInt(searchVolumes2[i]) > parseInt(minSearchVolume) && !keywords1.includes(keywords2[i]) && !resultKeywordsBox3.includes(keywords2[i])) {
+                resultKeywordsBox3.push(keywords2[i]);
+                resultSearchVolumesBox3.push(searchVolumes2[i]);
+            }
+        }
+
+        // Sort Box 3 keywords in descending order based on search volume
+        var sortedIndices = [...resultSearchVolumesBox3.keys()].sort((a, b) => resultSearchVolumesBox3[b] - resultSearchVolumesBox3[a]);
+        var sortedKeywordsBox3 = sortedIndices.map(index => resultKeywordsBox3[index]);
+        var sortedSearchVolumesBox3 = sortedIndices.map(index => resultSearchVolumesBox3[index]);
+
+        // Add keywords from Box 1 to Box 4 that have more search volume than required
+        // and are not similar to keywords in Box 2
+        for (var i = 0; i < keywords1.length; i++) {
+            if (parseInt(searchVolumes1[i]) > parseInt(minSearchVolume) && !keywords2.includes(keywords1[i]) && !resultKeywordsBox4.includes(keywords1[i])) {
+                resultKeywordsBox4.push(keywords1[i]);
+                resultSearchVolumesBox4.push(searchVolumes1[i]);
+            }
+        }
+
+        displayResult(sortedKeywordsBox3, sortedSearchVolumesBox3, "resultKeywords3", "resultSearchVolumes3");
+        displayResult(resultKeywordsBox4, resultSearchVolumesBox4, "resultKeywords4", "resultSearchVolumes4");
+    }
+
+    function displayResult(keywords, searchVolumes, resultKeywordsId, resultSearchVolumesId) {
+        var resultKeywordsDiv = document.getElementById(resultKeywordsId);
+        var resultSearchVolumesDiv = document.getElementById(resultSearchVolumesId);
+
+        resultKeywordsDiv.innerHTML = "";
+        resultSearchVolumesDiv.innerHTML = "";
+
+        for (var i = 0; i < keywords.length; i++) {
+            resultKeywordsDiv.innerHTML += "<div>" + keywords[i] + "</div>";
+            resultSearchVolumesDiv.innerHTML += "<div>" + searchVolumes[i] + "</div>";
+        }
+    }
+
+    function copyResult(resultId) {
+        var resultDiv = document.getElementById(resultId);
+        var values = Array.from(resultDiv.children).map(div => div.textContent);
+        var resultTextarea = document.createElement("textarea");
+        resultTextarea.value = values.join("\n");
+        document.body.appendChild(resultTextarea);
+        resultTextarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(resultTextarea);
+        alert("Result copied to clipboard!");
+    }
+</script>
+
+</body>
+</html>
